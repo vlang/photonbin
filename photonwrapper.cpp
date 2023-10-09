@@ -21,3 +21,7 @@ void photon_sleep_s(int n) {
 void photon_sleep_ms(int n) {
     photon_std::this_thread::sleep_for(std::chrono::milliseconds(n));
 }
+
+void set_photon_thread_stack_allocator(void* (*alloc_func)(void*, size_t), void (*dealloc_func)(void*, void*, size_t)) {
+    photon::set_photon_thread_stack_allocator({alloc_func, nullptr}, {dealloc_func, nullptr});
+}
