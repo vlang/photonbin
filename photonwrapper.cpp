@@ -15,13 +15,15 @@ void photon_thread_create(void* (* f)(void*), void* arg) {
 }
 
 void photon_sleep_s(int n) {
-    photon_std::this_thread::sleep_for(std::chrono::seconds(n));
+	photon_std::this_thread::sleep_for(std::chrono::seconds(n));
 }
 
 void photon_sleep_ms(int n) {
-    photon_std::this_thread::sleep_for(std::chrono::milliseconds(n));
+	photon_std::this_thread::sleep_for(std::chrono::milliseconds(n));
 }
 
-void set_photon_thread_stack_allocator(void* (*alloc_func)(void*, size_t), void (*dealloc_func)(void*, void*, size_t)) {
-    photon::set_photon_thread_stack_allocator({alloc_func, nullptr}, {dealloc_func, nullptr});
+void set_photon_thread_stack_allocator(
+	void* (*alloc_func)(void*, size_t),
+	void (*dealloc_func)(void*, void*, size_t)) {
+	photon::set_photon_thread_stack_allocator({alloc_func, nullptr}, {dealloc_func, nullptr});
 }
