@@ -4,7 +4,8 @@ using namespace std;
 
 int photon_init_default() {
 	int init_result = photon::init(photon::INIT_EVENT_DEFAULT, photon::INIT_IO_DEFAULT);
-	work_pool = new photon::WorkPool(8, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE, 1);
+	// work_pool = new photon::WorkPool(8, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE, -1);
+	work_pool = new photon::WorkPool(8, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE);
 	return init_result;
 }
 
