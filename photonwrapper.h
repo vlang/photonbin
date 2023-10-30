@@ -1,13 +1,12 @@
 #ifndef C_PHOTONWRAPPER_H_
 #define C_PHOTONWRAPPER_H_
 
-
 #include <sys/socket.h>
+#include <gc/gc.h>
 
 #ifdef __cplusplus
 
 #include <fcntl.h>
-#include <cinttypes>
 //#include <vector>
 
 #include <photon/thread/std-compat.h>
@@ -16,19 +15,25 @@
 #include <photon/fs/localfs.h>
 #include <photon/net/socket.h>
 #include <photon/net/basic_socket.h>
+#include <photon/thread/workerpool.h>
 #include <iostream>
+
+// typedef photon::WorkPool photon_WorkPool;
+// photon_WorkPool* work_pool;
+photon::WorkPool* work_pool;
 
 extern "C" {
 #else
 #endif
 
 int photon_init_default();
+// photon_WorkPool* photon_new_work_pool();
 void photon_thread_create(void* (* f)(void*), void* arg);
 void photon_sleep_s(int n);
 void photon_sleep_ms(int n);
 
-void* default_photon_thread_stack_alloc(void*, size_t size);
-void default_photon_thread_stack_dealloc(void*, void* ptr, size_t size);
+// void* default_photon_thread_stack_alloc(void*, size_t size);
+// void default_photon_thread_stack_dealloc(void*, void* ptr, size_t size);
 void set_photon_thread_stack_allocator(
     void* (*alloc_func)(void*, size_t),
     void (*dealloc_func)(void*, void*, size_t)
