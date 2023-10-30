@@ -2,7 +2,6 @@
 #define C_PHOTONWRAPPER_H_
 
 #include <sys/socket.h>
-#include <gc/gc.h>
 
 #ifdef __cplusplus
 
