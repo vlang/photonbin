@@ -1,25 +1,30 @@
 #include "photonwrapper.h"
 
 using namespace std;
+// using namespace photon;
 
 int photon_init_default() {
-	int init_result = photon::init(photon::INIT_EVENT_DEFAULT, photon::INIT_IO_DEFAULT);
-	// work_pool = new photon::WorkPool(8, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE, -1);
-	work_pool = new photon::WorkPool(8, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE);
-	return init_result;
+	return photon::init(photon::INIT_EVENT_DEFAULT, photon::INIT_IO_DEFAULT);
 }
 
-// TODO:
-// photon_WorkPool* photon_new_work_pool() {
-// 	return new photon::WorkPool(24, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE);
+// WorkPool* new_photon_work_pool(size_t vcpu_num) {
+// 	// return new photon::WorkPool(vcpu_num, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE, -1);
+// 	return new photon::WorkPool(vcpu_num, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE);
 // }
+
+void init_photon_work_pool(size_t vcpu_num) {
+	work_pool = new photon::WorkPool(vcpu_num, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE);
+}
 
 void* thread_test_function(void* arg) {
 	cout << "test";
 }
 
 void photon_thread_create(void* (* f)(void*), void* arg) {
-	// photon::thread_create(f, arg);
+	photon::thread_create(f, arg);
+}
+
+void thread_thread_create_and_migrate_to_work_pool(void* (* f)(void*), void* arg) {
 	// -1 it will choose the next vCPU in pool (round-robin).
 	work_pool->thread_migrate(photon::thread_create(f, arg), -1UL);
 }

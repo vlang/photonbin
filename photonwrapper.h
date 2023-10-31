@@ -3,6 +3,7 @@
 
 #include <sys/socket.h>
 
+
 #ifdef __cplusplus
 
 #include <fcntl.h>
@@ -17,16 +18,19 @@
 #include <photon/thread/workerpool.h>
 #include <iostream>
 
-// typedef photon::WorkPool photon_WorkPool;
-// photon_WorkPool* work_pool;
-photon::WorkPool* work_pool;
-
 extern "C" {
+// using namespace photon;
+// WorkPool* work_pool;
+// WorkPool* new_photon_work_pool();
+photon::WorkPool* work_pool;
 #else
 #endif
 
+// custom v functions
+void init_photon_work_pool(int);
+void photon_thread_create_and_migrate_to_work_pool(void* (* f)(void*), void* arg);
+// direct wrappers to photon functions
 int photon_init_default();
-// photon_WorkPool* photon_new_work_pool();
 void photon_thread_create(void* (* f)(void*), void* arg);
 void photon_sleep_s(int n);
 void photon_sleep_ms(int n);
