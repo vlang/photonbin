@@ -27,7 +27,7 @@ photon::WorkPool* work_pool;
 #endif
 
 // custom v functions
-void init_photon_work_pool(int);
+void init_photon_work_pool(size_t);
 void photon_thread_create_and_migrate_to_work_pool(void* (* f)(void*), void* arg);
 // direct wrappers to photon functions
 int photon_init_default();
