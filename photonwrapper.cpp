@@ -14,6 +14,8 @@ int photon_init_default() {
 
 void init_photon_work_pool(size_t vcpu_num) {
 	work_pool = new photon::WorkPool(vcpu_num, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE);
+	// TODO: clean this up somewhere
+	// DEFER(delete work_pool);
 }
 
 void* thread_test_function(void* arg) {
