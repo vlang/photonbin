@@ -24,7 +24,7 @@ void photon_thread_create(void* (* f)(void*), void* arg) {
 	photon::thread_create(f, arg);
 }
 
-void thread_thread_create_and_migrate_to_work_pool(void* (* f)(void*), void* arg) {
+void photon_thread_create_and_migrate_to_work_pool(void* (* f)(void*), void* arg) {
 	// -1 it will choose the next vCPU in pool (round-robin).
 	work_pool->thread_migrate(photon::thread_create(f, arg), -1UL);
 }
