@@ -1,44 +1,18 @@
 #include "photonwrapper.h"
 
 using namespace std;
-// using namespace photon;
 
-/*
-class MyWorkPool : public photon::WorkPool {
-public:
-	using InitFunction = void(*)();
+void photon_set_log_output_srdout() {
+	set_log_output(log_output_stdout);
+}
 
-	MyWorkPool(int vcpu_num, int ev_engine = photon::INIT_EVENT_DEFAULT, int io_engine = photon::INIT_IO_NONE, int mode = 0)
-	: photon::WorkPool(vcpu_num, ev_engine, io_engine, mode) {
+void photon_set_log_output_stderr() {
+	set_log_output(log_output_stderr);
+}
 
-		if (init_fn) {
-			init_fn();
-		}
-	}
-
-	void worker_thread_routine(int ev_engine, int io_engine) {
-	// void worker_thread_routine(int ev_engine, int io_engine) {
-		std::cout << "## MyWorkerPool::worker_thead_routine";
-		// if (init_fn) {
-		//     init_fn();
-		// }
-		// worker_thread_routine(ev_engine, io_engine);
-
-		// photon::WorkPool::main_loop();
-		// main_loop();
-	}
-
-	// Set the initialization function
-	static void set_init_fn(InitFunction f) {
-		init_fn = f;
-	}
-
-private:
-  static InitFunction init_fn;
-};
-
-MyWorkPool::InitFunction MyWorkPool::init_fn = nullptr;
-*/
+void photon_set_log_output_null() {
+	set_log_output(log_output_null);
+}
 
 void* default_photon_thread_stack_alloc(void* a, size_t size) {
 	return photon::default_photon_thread_stack_alloc(a, size);
@@ -76,6 +50,10 @@ void delete_photon_work_pool() {
 void init_photon_work_pool(size_t vcpu_num) {
 	work_pool = new photon::WorkPool(vcpu_num, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE);
 	// work_pool = new photon::WorkPool(vcpu_num, photon::INIT_EVENT_DEFAULT, photon::INIT_IO_NONE, 10);
+}
+
+int photon_join_current_thread_into_workpool() {
+	return work_pool->join_current_vcpu_into_workpool();
 }
 
 // void init_photon_my_work_pool(size_t vcpu_num, void (* f1)()) {
